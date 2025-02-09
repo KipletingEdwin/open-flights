@@ -14,7 +14,14 @@ module Api
                 render json: AirlineSerializer.new(airline).serialized_json
             end
 
-            def create
+            def create 
+                airline = Airline.new(airline_params) 
+
+                if airline.save 
+                    render json: AirlineSerializer.new(airline).serialized_json, status: 422 
+                else 
+                    render json: { errors: airline.errors.full_messages }, status: 422 
+                end
             end
 
             def update
