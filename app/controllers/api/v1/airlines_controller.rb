@@ -24,7 +24,15 @@ module Api
                 end
             end
 
-            def update
+            def update 
+                airline = Airline.find_by(slug: params[:slug]) 
+
+                if airline.update(airline_params ) 
+                    render json: AirlineSerializer.new(airline).serialized_json 
+                    else 
+                        render json: { errors: airline.errors.full_messages }, status: 422 
+                    end
+
             end
 
             def destroy
