@@ -21,6 +21,14 @@ module Api
             end
 
             def destroy
+            end
+
+
+            private
+
+            def airline_params
+                params.require(:airline).permit(:name, :image_url)
+            end
             
         end
     end
